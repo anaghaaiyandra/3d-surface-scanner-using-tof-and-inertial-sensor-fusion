@@ -147,11 +147,11 @@ Contactless surface and dimension checks, obstacle sensing for small robots, and
 
 ## What we learned
 
-*[Add 3-4 honest lines: I2C debugging, sensor noise and invalid zones, coordinate frames, WebSocket streaming.]*
+I2C debugging, sensor noise and invalid zones, coordinate frames, constructing the project
 
 ## Team
 
-*[Add team members and links, with their permission.]*
+Anagha Aiyandra
 
 ## License
 
