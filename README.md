@@ -139,12 +139,12 @@ BNO085 orientation, multi-sensor arrays, Kalman-filter pose estimation, ICP-base
 
 ## What I learned
 
-*[Add 3 to 4 honest lines here, for example: I2C bus debugging, sensor calibration, coordinate frames, and handling noisy data. Recruiters read this section.]*
+I2C bus debugging, sensor calibration, coordinate frames, assembling the project, and handling noisy data.
 
 ## Author
 
-**[Your Name]** | B.Tech ECE (VLSI), VIT-AP University
-[LinkedIn](https://linkedin.com/in/[handle]) | [Email](mailto:[yourname@email.com])
+Anagha Aiyandra | B.Tech ECE (VLSI), VIT-AP University
+https://linkedin.com/in/anagha-aiyandra17 | mailto: anagha.aiyandra@gmail.com
 
 ## License
 
