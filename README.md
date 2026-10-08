@@ -98,10 +98,10 @@ python transform.py            # runs the maths self-test
 
 - [x] Project design, component selection and architecture
 - [x] Coordinate transform maths (`software/transform.py`)
-- [ ] Interface VL53L5CX and MPU-6050 over I2C, verify 8x8 readout
-- [ ] Portable power and OLED status screen
+- [x] Interface VL53L5CX and MPU-6050 over I2C, verify 8x8 readout
+- [x] Portable power and OLED status screen
 - [ ] On-device spherical to Cartesian conversion and IMU fusion
-- [ ] Wi-Fi WebSocket streaming to PC
+- [x] Wi-Fi WebSocket streaming to PC
 - [ ] Live point-cloud viewer (Open3D)
 - [ ] Mesh reconstruction and noise filtering
 - [ ] Enclosure, calibration and final demo
