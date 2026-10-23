@@ -51,7 +51,7 @@ MAX_BUFFER_POINTS = 20000           # live sweep cloud size
 OBJECT_MIN_HEIGHT = 8.0             # mm an object must stand above the background
 
 # ---- Orientation calibration (change these after the tilt test in the guide) ----
-FLIP_X = False                      # True if the scene looks mirrored left/right
+FLIP_X = True                      # True if the scene looks mirrored left/right
 FLIP_Y = False                      # True if the scene looks upside down
 SWAP_PITCH_ROLL = False             # True if tilting one way moves the other axis
 PITCH_SIGN = 1.0                    # -1.0 if tilt correction goes the wrong direction
