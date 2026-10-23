@@ -104,8 +104,9 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
 void sendSensorData() {
   int offset = snprintf(jsonBuffer, sizeof(jsonBuffer), "{\"pitch\":%.1f,\"roll\":%.1f,\"grid\":[", pitch, roll);
   for (int i = 0; i < 64; i++) {
-    int dist = measurementData.distance_mm[i];
-    if (dist < 0) dist = 0;
+       int dist = measurementData.distance_mm[i];
+   uint8_t st = measurementData.target_status[i];
+   if (dist < 0 || !(st == 5 || st == 9)) dist = 0;
     offset += snprintf(jsonBuffer + offset, sizeof(jsonBuffer) - offset, "%d%s", dist, (i < 63) ? "," : "");
   }
   snprintf(jsonBuffer + offset, sizeof(jsonBuffer) - offset, "]}");
