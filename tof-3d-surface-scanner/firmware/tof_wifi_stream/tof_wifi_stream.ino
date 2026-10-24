@@ -104,9 +104,8 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
 void sendSensorData() {
   int offset = snprintf(jsonBuffer, sizeof(jsonBuffer), "{\"pitch\":%.1f,\"roll\":%.1f,\"grid\":[", pitch, roll);
   for (int i = 0; i < 64; i++) {
-       int dist = measurementData.distance_mm[i];
-   uint8_t st = measurementData.target_status[i];
-   if (dist < 0 || !(st == 5 || st == 9)) dist = 0;
+    int dist = measurementData.distance_mm[i];
+    if (dist < 0) dist = 0;
     offset += snprintf(jsonBuffer + offset, sizeof(jsonBuffer) - offset, "%d%s", dist, (i < 63) ? "," : "");
   }
   snprintf(jsonBuffer + offset, sizeof(jsonBuffer) - offset, "]}");
@@ -119,7 +118,7 @@ void setup() {
 
   // 400 kHz I2C Fast Mode
   Wire.begin(SDA_PIN, SCL_PIN);
-  Wire.setClock(400000);
+  Wire.setClock(100000);
 
   if (display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
     display.clearDisplay();
@@ -152,7 +151,7 @@ void setup() {
   if (myImager.begin()) {
     sensorFound = true;
     myImager.setResolution(8 * 8);
-    myImager.setRangingFrequency(15);
+    myImager.setRangingFrequency(4);
     myImager.startRanging();
     delay(200);
     Serial.println("[HARDWARE] VL53L5CX Ready!");
@@ -170,21 +169,28 @@ void setup() {
 void loop() {
   webSocket.loop();
   updateIMU();
+  static unsigned long lastDbg = 0, loops = 0;
+  loops++;
 
   if (sensorFound && myImager.isDataReady()) {
-    if (myImager.getRangingData(&measurementData)) {
+    unsigned long t0 = millis();
+    bool ok = myImager.getRangingData(&measurementData);
+    unsigned long dt = millis() - t0;
+    Serial.printf("read ok=%d took %lu ms\n", ok, dt);
+    if (ok) {
       totalFrames++;
-      if (clientConnected) {
-        sendSensorData();
-      }
+      if (clientConnected) sendSensorData();
     }
   }
 
-  // Refresh OLED once per second to avoid clogging I2C bus
-  if (millis() - lastOledTime > 1000) {
-    lastOledTime = millis();
+  
+  if (millis() - lastDbg > 1000) {
+    lastDbg = millis();
+    Serial.printf("loops/s=%lu frames=%lu\n", loops, totalFrames);
+    loops = 0;
     renderOLED();
   }
+
 
   yield();
 }
